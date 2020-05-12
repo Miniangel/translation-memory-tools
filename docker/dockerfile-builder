@@ -1,7 +1,7 @@
 FROM python:3.6.9-stretch
 
 ENV LT_ROOT /opt/lt
-ENV LT /opt/lt/LanguageTool-4.7
+ENV LT /opt/lt/LanguageTool-4.9
 ENV DIR /opt/dev
 ENV DIR_TMT_GIT /opt/dev/tm-git
 
@@ -12,7 +12,7 @@ RUN mkdir -p $DIR
 RUN apt-get install openjdk-8-jdk -y 
 RUN mkdir -p $LT_ROOT
 WORKDIR $LT_ROOT
-RUN wget -q https://languagetool.org/download/LanguageTool-4.7.zip && unzip LanguageTool-4.7.zip
+RUN wget -q https://languagetool.org/download/LanguageTool-4.9.zip && unzip LanguageTool-4.9.zip
 
 #Pology
 RUN apt-get install cmake -y
