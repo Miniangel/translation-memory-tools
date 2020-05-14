@@ -1,18 +1,10 @@
 FROM python:3.6.9-stretch
 
-ENV LT_ROOT /opt/lt
-ENV LT /opt/lt/LanguageTool-4.9
 ENV DIR /opt/dev
 ENV DIR_TMT_GIT /opt/dev/tm-git
 
 RUN apt-get update && apt-get install python3-dev libhunspell-dev libyaml-dev  gettext zip vim  -y
 RUN mkdir -p $DIR
-
-# LanguageTool
-RUN apt-get install openjdk-8-jdk -y 
-RUN mkdir -p $LT_ROOT
-WORKDIR $LT_ROOT
-RUN wget -q https://languagetool.org/download/LanguageTool-4.9.zip && unzip LanguageTool-4.9.zip
 
 #Pology
 RUN apt-get install cmake -y
@@ -49,4 +41,4 @@ WORKDIR $DIR_TMT_GIT/cfg/projects
 WORKDIR $DIR_TMT_GIT/src
 
 # What get's executed on Run
-ENTRYPOINT bash $DIR_TMT_GIT/docker/docker-builder-run.sh $DIR $DIR_TMT_GIT $LT
+ENTRYPOINT bash $DIR_TMT_GIT/docker/entry-point-builder.sh $DIR $DIR_TMT_GIT 
