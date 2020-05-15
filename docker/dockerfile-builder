@@ -14,16 +14,14 @@ WORKDIR pology-0.12
 RUN mkdir build && cd build && cmake .. && make && make install
  
 WORKDIR $DIR
-RUN git clone --recursive https://github.com/Softcatala/translation-memory-tools.git $DIR_TMT_GIT
+#RUN git clone --recursive https://github.com/Softcatala/translation-memory-tools.git $DIR_TMT_GIT
 RUN git clone https://github.com/Softcatala/web-2015.git
+COPY * $DIR_TMT_GIT/
 
 WORKDIR $DIR_TMT_GIT/cfg/projects/
 RUN rm *.json && git checkout I* G*
 
 WORKDIR $DIR_TMT_GIT
-RUN git checkout docker --
-RUN git submodule update --remote
-
 RUN pip install -r requirements.txt
 
 RUN git clone https://github.com/rbenv/rbenv.git ~/.rbenv
