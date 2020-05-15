@@ -17,8 +17,11 @@ WORKDIR $DIR
 RUN git clone --recursive https://github.com/Softcatala/translation-memory-tools.git $DIR_TMT_GIT
 RUN git clone https://github.com/Softcatala/web-2015.git
 
+WORKDIR $DIR_TMT_GIT/cfg/projects/
+RUN rm *.json && git checkout I* G*
+
 WORKDIR $DIR_TMT_GIT
-RUN git checkout docker
+RUN git checkout docker --
 RUN git submodule update --remote
 
 RUN pip install -r requirements.txt
@@ -43,3 +46,4 @@ WORKDIR $DIR_TMT_GIT/src
 
 # What get's executed on Run
 ENTRYPOINT bash $DIR_TMT_GIT/docker/entry-point-builder.sh $DIR $DIR_TMT_GIT 
+
