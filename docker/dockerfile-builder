@@ -15,16 +15,13 @@ RUN mkdir build && cd build && cmake .. && make && make install
  
 WORKDIR $DIR
 RUN git clone https://github.com/Softcatala/web-2015.git
-COPY * $DIR_TMT_GIT/
+COPY src/ $DIR_TMT_GIT/src/
+COPY deployment/ $DIR_TMT_GIT/deployment/
+COPY source-pos/ $DIR_TMT_GIT/source-pos/
+COPY cfg/ $DIR_TMT_GIT/cfg/
 
 WORKDIR $DIR_TMT_GIT/cfg/projects/
-RUN pwd
-RUN mkdir old 
-RUN ls -l
-RUN cp i* old/ 
-RUN cp g* old/ 
-RUN rm *.json 
-RUN cp old/* .
+RUN mkdir -p old && cp i* old/ && cp g* old/ && rm *.json && cp old/* .
 
 WORKDIR $DIR_TMT_GIT
 RUN pip install -r requirements.txt
