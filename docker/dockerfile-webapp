@@ -1,0 +1,40 @@
+# samples 
+# https://github.com/Azure-App-Service/flask-docker/blob/master/Dockerfile
+FROM python:3.6.1
+RUN apt-get update && apt-get install python3-dev libhunspell-dev gettext -y
+RUN git clone --depth=1 https://github.com/Softcatala/translation-memory-tools.git tmt
+
+WORKDIR tmt
+RUN pip install -r requirements.txt && pip install lxml 
+#RUN apt-get install curl -y && curl -L https://get.rvm.io | bash -s stable --ruby --auto-dotfiles
+#RUN rvm install ruby && gem install i18n-translators-tools
+
+#Web server
+RUN pip install gunicorn
+RUN apt-get install supervisor nginx lynx -y
+WORKDIR etc
+RUN cp nginx/recursos /etc/nginx/sites-available
+#RUN cp supervisor/recursos.conf /etc/nginx/sites-available /etc/supervisor/conf.d
+
+WORKDIR /etc/nginx/sites-enabled
+RUN rm default
+RUN ln -s /etc/nginx/sites-available/recursos .
+RUN service nginx reload
+
+WORKDIR /tmt/cfg/projects
+RUN rm *.json
+RUN git checkout Abiword.json IntegrationTests.json Git.json TuxPaint.json
+WORKDIR /tmt/src
+
+EXPOSE 8080 8000
+
+RUN mkdir -p /home/jmas/web/recursos/
+
+WORKDIR web
+# https://www.softcatala.org/recursos/ es desvia al port 8080 de la màquina virtual interna recursos on hi ha un nginx contestant el port i el gunicorn contestant al port 8000
+
+#What get's executed on Run
+ENTRYPOINT /etc/init.d/nginx start
+ENTRYPOINT gunicorn web_search:app -b 0.0.0.0:8000
+
+
