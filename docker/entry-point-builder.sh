@@ -32,5 +32,6 @@ if [ -f builder-error.log ]; then cat builder-error.log;fi
 cd $DIR_TMT_GIT/deployment
 /bin/bash generate-quality.sh $DIR
 /bin/bash deploy.sh $DIR $DEPLOY_DIR "" $PUBLIC
-/bin/bash # Used for debugging
+
+sleep 2d
 
