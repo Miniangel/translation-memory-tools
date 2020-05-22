@@ -12,25 +12,6 @@ RUN wget -q http://pology.nedohodnik.net//release/pology-0.12.tar.bz2
 RUN tar xvjf pology-0.12.tar.bz2
 WORKDIR pology-0.12
 RUN mkdir build && cd build && cmake .. && make && make install
- 
-WORKDIR $DIR
-RUN git clone https://github.com/Softcatala/web-2015.git
-COPY src/ $DIR_TMT_GIT/src/
-COPY deployment/ $DIR_TMT_GIT/deployment/
-COPY source-pos/ $DIR_TMT_GIT/source-pos/
-COPY cfg/ $DIR_TMT_GIT/cfg/
-COPY docker/ $DIR_TMT_GIT/docker/
-COPY requirements.txt/ $DIR_TMT_GIT/
-
-WORKDIR $DIR_TMT_GIT/cfg/projects/
-RUN mkdir -p old && cp In* old/ && cp VLC* old/ && cp GNOME* old/ && rm *.json && cp old/* .
-
-WORKDIR $DIR_TMT_GIT
-RUN pip install -r requirements.txt
-
-RUN git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-RUN git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-ENV PATH /root/.rbenv/bin:/root/.rbenv/shims:$PATH
 
 RUN rbenv init -
 RUN rbenv install 2.6.0
@@ -42,6 +23,27 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y locales
 
 RUN sed -i -e 's/# ca_ES.UTF-8 UTF-8/ca_ES.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales
+
+ 
+WORKDIR $DIR
+RUN git clone https://github.com/Softcatala/web-2015.git
+COPY src/ $DIR_TMT_GIT/src/
+COPY deployment/ $DIR_TMT_GIT/deployment/
+COPY source-pos/ $DIR_TMT_GIT/source-pos/
+COPY cfg/ $DIR_TMT_GIT/cfg/
+COPY docker/ $DIR_TMT_GIT/docker/
+COPY requirements.txt/ $DIR_TMT_GIT/
+
+WORKDIR $DIR_TMT_GIT/cfg/projects/
+RUN mkdir -p old && cp In* old/ && cp VLC* old/ && rm *.json && cp old/* .
+
+WORKDIR $DIR_TMT_GIT
+RUN pip install -r requirements.txt
+
+RUN git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+RUN git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+ENV PATH /root/.rbenv/bin:/root/.rbenv/shims:$PATH
+
 
 WORKDIR $DIR_TMT_GIT/cfg/projects
 WORKDIR $DIR_TMT_GIT/src
