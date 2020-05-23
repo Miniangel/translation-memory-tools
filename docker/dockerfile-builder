@@ -3,7 +3,7 @@ FROM python:3.6.9-stretch
 ENV DIR /opt/dev
 ENV DIR_TMT_GIT /opt/dev/tm-git
 
-RUN apt-get update && apt-get install python3-dev libhunspell-dev libyaml-dev  gettext zip vim  -y
+RUN apt-get update && apt-get install python3-dev libhunspell-dev libyaml-dev  gettext zip vim rsync -y
 RUN mkdir -p $DIR
 
 #Pology
@@ -40,7 +40,8 @@ COPY docker/ $DIR_TMT_GIT/docker/
 COPY requirements.txt/ $DIR_TMT_GIT/
 
 WORKDIR $DIR_TMT_GIT/cfg/projects/
-RUN mkdir -p old && cp Int* old/ && cp VLC* old/ && cp Fedora* old/ && cp OpenStack* old/ && rm *.json && cp old/* .
+#RUN mkdir -p old && cp Int* old/ && cp VLC* old/ && cp Fedora* old/ && cp OpenStack* old/ && rm *.json && cp old/* .
+RUN mkdir -p old && cp Int* old/ && cp VLC* old/  && cp OpenStack* old/ && rm *.json && cp old/* .
 
 WORKDIR $DIR_TMT_GIT
 RUN pip install -r requirements.txt
