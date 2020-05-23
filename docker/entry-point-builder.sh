@@ -11,12 +11,14 @@ cd $DIR_TMT_GIT && git pull
 if [[ -n "${TRANSIFEX_USER}" && -n "${TRANSIFEX_PASSWORD}" ]]; then
     python $DIR_TMT_GIT/docker/credentials/transifex.py
 else
+    echo "Removing Transifex projects"
     grep -l "type.*transifex" cfg/projects/*.json  | xargs rm -f
 fi
 
 if [[ -n "${ZANATA_PROJECT_1}" && -n "${ZANATA_USER_1}"  && -n "${ZANATA_TOKEN_1}" ]]; then
     python $DIR_TMT_GIT/docker/credentials/zanata.py $DIR_TMT_GIT/cfg/credentials/
 else
+    echo "Removing Zentata projects"
     grep -l "type.*zanata" cfg/projects/*.json  | xargs rm -f
 fi
 
@@ -33,5 +35,6 @@ cd $DIR_TMT_GIT/deployment
 /bin/bash generate-quality.sh $DIR
 /bin/bash deploy.sh $DIR $DEPLOY_DIR "" $PUBLIC
 
+bash
 sleep 2d
 

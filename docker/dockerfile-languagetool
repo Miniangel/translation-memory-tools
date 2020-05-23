@@ -1,5 +1,7 @@
 FROM python:3.6.9-stretch
 
+EXPOSE 7001
+
 ENV ROOT /srv
 ENV LT $ROOT/LanguageTool-4.9
 
