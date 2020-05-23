@@ -45,9 +45,6 @@ WORKDIR $DIR_TMT_GIT/cfg/projects/
 WORKDIR $DIR_TMT_GIT
 RUN pip install -r requirements.txt
 
-WORKDIR $DIR_TMT_GIT/cfg/projects
-WORKDIR $DIR_TMT_GIT/src
-
 # What get's executed on Run
 ENTRYPOINT bash $DIR_TMT_GIT/docker/entry-point-builder.sh $DIR $DIR_TMT_GIT 
 
