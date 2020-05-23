@@ -39,7 +39,7 @@ COPY cfg/ $DIR_TMT_GIT/cfg/
 COPY docker/ $DIR_TMT_GIT/docker/
 COPY requirements.txt/ $DIR_TMT_GIT/
 
-WORKDIR $DIR_TMT_GIT/cfg/projects/
+#WORKDIR $DIR_TMT_GIT/cfg/projects/
 #RUN mkdir -p old && cp Int* old/ && cp VLC* old/  && cp OpenStack* old/ && rm *.json && cp old/* .
 
 WORKDIR $DIR_TMT_GIT
