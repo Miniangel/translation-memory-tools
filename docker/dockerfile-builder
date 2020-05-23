@@ -40,8 +40,7 @@ COPY docker/ $DIR_TMT_GIT/docker/
 COPY requirements.txt/ $DIR_TMT_GIT/
 
 WORKDIR $DIR_TMT_GIT/cfg/projects/
-#RUN mkdir -p old && cp Int* old/ && cp VLC* old/ && cp Fedora* old/ && cp OpenStack* old/ && rm *.json && cp old/* .
-RUN mkdir -p old && cp Int* old/ && cp VLC* old/  && cp OpenStack* old/ && rm *.json && cp old/* .
+#RUN mkdir -p old && cp Int* old/ && cp VLC* old/  && cp OpenStack* old/ && rm *.json && cp old/* .
 
 WORKDIR $DIR_TMT_GIT
 RUN pip install -r requirements.txt
