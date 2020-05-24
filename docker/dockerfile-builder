@@ -1,7 +1,7 @@
 FROM python:3.6.9-stretch
 
-ENV DIR /opt/dev
-ENV DIR_TMT_GIT /opt/dev/tm-git
+ENV DIR /srv/dev
+ENV DIR_TMT_GIT /srv/dev/tm-git
 
 RUN apt-get update && apt-get install python3-dev libhunspell-dev libyaml-dev gettext zip vim rsync -y
 RUN mkdir -p $DIR

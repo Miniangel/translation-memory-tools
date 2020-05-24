@@ -1,6 +1,8 @@
 #!/bin/bash
 ROOT="$1"
 TARGET_DIR="$2"
+secs="$3"
+
 
 INTERMEDIATE_PO=$PUBLIC/translation-memories/po
 BACKUP_DIR=$PUBLIC/previous
@@ -10,4 +12,4 @@ ls -h -s -S  $TARGET_DIR/quality/*.html >> report.txt
 cd $ROOT/tm-git/src
 cat builder-error.log >> report.txt
 
-
+printf 'TIME. Total execution time %dh:%dm:%ds\n' $(($secs/3600)) $(($secs%3600/60)) $(($secs%60))
