@@ -5,9 +5,6 @@ PUBLIC=/public-data/
 DEPLOY_DIR=/public-data/web/recursos-dev
 PREPROD_DEPLOY_DIR=/public-data/web/recursos-preprod
 
-echo $DIR, $DIR_TMT_GIT
-cd $DIR_TMT_GIT && git pull
-
 mkdir -p ~/.ssh && chmod 0700 ~/.ssh
 cp /run/secrets/ssh_private_key  ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 eval `ssh-agent -s` && ssh-add -k ~/.ssh/id_rsa
@@ -31,8 +28,6 @@ tx --version
 
 cd $DIR_TMT_GIT/deployment 
 /bin/bash generate-tm.sh $DIR $PUBLIC 2> $DIR_TMT_GIT/generate-errors.log
-if [ -f builder-error.log ]; then cat builder-error.log;fi
-
 /bin/bash generate-terminology.sh $DIR 2> $DIR_TMT_GIT/terminology-errors.log
 /bin/bash generate-isolists.sh $DIR 2> $DIR_TMT_GIT/iso-lists-errors.log
 
