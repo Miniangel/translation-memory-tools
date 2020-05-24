@@ -20,12 +20,7 @@
 
 from __future__ import print_function
 import logging
-import os
-import datetime
-from batchfiles import *
-import time
 import smtplib
-import ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -53,6 +48,7 @@ def send_email(translated_file, email):
 
 def main():
     send_email('report.txt', 'jmas@softcatala.org')
+
 
 if __name__ == "__main__":
     main()
