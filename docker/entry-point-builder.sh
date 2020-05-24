@@ -46,6 +46,9 @@ rsync -avz --delete -e "ssh -p 3222" $DEPLOY_DIR/*.html tmt-files@pirineus.softc
 rsync -avz --delete -e "ssh -p 3222" $DEPLOY_DIR/quality/ tmt-files@pirineus.softcatala.org:/home/jmas/web/recursos-dev/quality/
 rsync -avz --delete -e "ssh -p 3222" $DEPLOY_DIR/memories/ tmt-files@pirineus.softcatala.org:/home/jmas/web/recursos-dev/memories/
 
+cd $DIR_TMT_GIT/docker
+/bin/bash generate-email.sh $DIR $DEPLOY_DIR 
+
 echo "Waiting for 2 days"
 sleep 2d
 

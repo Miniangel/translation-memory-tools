@@ -8,7 +8,7 @@ RUN mkdir -p $DIR
 
 #Pology
 RUN apt-get install cmake -y
-RUN wget -q http://pology.nedohodnik.net//release/pology-0.12.tar.bz2
+RUN wget -q http://pology.nedohodnik.net/release/pology-0.12.tar.bz2
 RUN tar xvjf pology-0.12.tar.bz2
 WORKDIR pology-0.12
 RUN mkdir build && cd build && cmake .. && make && make install
@@ -39,8 +39,8 @@ COPY cfg/ $DIR_TMT_GIT/cfg/
 COPY docker/ $DIR_TMT_GIT/docker/
 COPY requirements.txt/ $DIR_TMT_GIT/
 
-#WORKDIR $DIR_TMT_GIT/cfg/projects/
-#RUN mkdir -p old && cp Int* old/ && cp VLC* old/  && cp OpenStack* old/ && rm *.json && cp old/* .
+WORKDIR $DIR_TMT_GIT/cfg/projects/
+RUN mkdir -p old && cp Int* old/ && cp OpenStack* old/ && rm *.json && cp old/* . && rm -r -f old/*
 
 WORKDIR $DIR_TMT_GIT
 RUN pip install -r requirements.txt
