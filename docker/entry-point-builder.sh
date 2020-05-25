@@ -37,6 +37,7 @@ cd $DIR_TMT_GIT/deployment
 # Deploy
 rsync -avz --delete -e "ssh -p 3222" $DEPLOY_DIR/indexdir/ tmt-files@pirineus.softcatala.org:/home/jmas/web/recursos-dev/indexdir/
 rsync -avz --delete -e "ssh -p 3222" $DEPLOY_DIR/*.html tmt-files@pirineus.softcatala.org:/home/jmas/web/recursos-dev/
+rsync -avz --delete -e "ssh -p 3222" $PUBLIC/*.db3 tmt-files@pirineus.softcatala.org:/home/jmas/web/recursos-dev/
 rsync -avz --delete -e "ssh -p 3222" $DEPLOY_DIR/quality/ tmt-files@pirineus.softcatala.org:/home/jmas/web/recursos-dev/quality/
 rsync -avz --delete -e "ssh -p 3222" $DEPLOY_DIR/memories/ tmt-files@pirineus.softcatala.org:/home/jmas/web/recursos-dev/memories/
 
