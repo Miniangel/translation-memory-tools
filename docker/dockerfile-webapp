@@ -1,25 +1,25 @@
-FROM python:3.6.1
+FROM python:3.6.9-stretch
+
 RUN apt-get update && apt-get install python3-dev libhunspell-dev gettext -y
+RUN apt-get install supervisor nginx lynx -y
+
 COPY src/web /srv/web/
-COPY docker/entry-point-web.sh /srv/entry-point-web.sh
+COPY src/terminology/ /srv/terminology/
+COPY src/builder/ /srv/builder/
+COPY docker/entry-point-web.sh /srv/entry-point.sh
+COPY requirements.txt /srv/requirements.txt
 
 WORKDIR /srv/
-RUN pip install -r requirements.txt && pip install lxml 
-
+RUN pip install -r requirements.txt
 RUN pip install gunicorn
 
 #Web server
-RUN apt-get install supervisor nginx lynx -y
 COPY etc/nginx/recursos-docker /etc/nginx/sites-available/recursos
 #RUN cp supervisor/recursos.conf /etc/nginx/sites-available /etc/supervisor/conf.d
-
 WORKDIR /etc/nginx/sites-enabled
 RUN rm default
 RUN ln -s /etc/nginx/sites-available/recursos .
 #RUN service nginx reload
 
-WORKDIR web
-
-#What get's executed on Run
-ENTRYPOINT bash $DIR_TMT_GIT/src/entry-point-builder.sh
+ENTRYPOINT bash /srv/entry-point.sh
 
