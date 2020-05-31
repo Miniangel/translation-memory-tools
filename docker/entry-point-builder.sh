@@ -2,8 +2,8 @@
 DIR="$1"
 DIR_TMT_GIT="$2"
 PUBLIC=/srv/public-data/
-DEPLOY_DIR=/srv/web/recursos-dev
-PREPROD_DEPLOY_DIR=/web/recursos-preprod
+#DEPLOY_DIR=/srv/web/recursos-dev
+#PREPROD_DEPLOY_DIR=/web/recursos-preprod
 
 mkdir -p ~/.ssh && chmod 0700 ~/.ssh
 cp /run/secrets/ssh_private_key  ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
@@ -41,15 +41,18 @@ echo Generate terminology
 /bin/bash generate-isolists.sh $DIR 2> $DIR_TMT_GIT/iso-lists-errors.log
 echo Generate Quality
 /bin/bash generate-quality.sh $DIR 2> $DIR_TMT_GIT/quality-errors.log
-/bin/bash deploy.sh $DIR $DEPLOY_DIR "" $PUBLIC
+/bin/bash deploy-docker.sh $DIR $PUBLIC $PUBLIC
 
 # Deploy
-cd $PUBLIC
-cp -r $DEPLOY_DIR/indexdir/ .
-cp -r $DEPLOY_DIR/quality/ .
-cp -r $DEPLOY_DIR/memories/ .
-cp -r $DEPLOY_DIR/*.html .
+#cd $PUBLIC
+#cp -r $DEPLOY_DIR/indexdir/ .
+#cp -r $DEPLOY_DIR/quality/ .
+#cp -r $DEPLOY_DIR/memories/ .
+#cp -r $DEPLOY_DIR/*.html .
+#cp -r $DEPLOY_DIR/*.db3 .
+echo Add!
 git add *
-git commit -a -m "Changes"
+git commit -a -m "File update"
 git push
-sleep(2d)
+echo Completed!
+sleep 2d 
