@@ -42,8 +42,8 @@ copy_files() {
 }
 
 
-if [ "$#" -ne 4 ] ; then
-    echo "Usage: deploy.sh ROOT_DIRECTORY_OF_BUILD_LOCATION TARGET_DESTINATION PUBLIC_DATA"
+if [ "$#" -ne 3 ] ; then
+    echo "Usage: deploy.sh ROOT_DIRECTORY_OF_BUILD_LOCATION TARGET_DESTINATION"
     echo "Invalid number of parameters"
     exit
 fi  
