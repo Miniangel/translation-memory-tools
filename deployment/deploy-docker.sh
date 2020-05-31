@@ -42,7 +42,7 @@ copy_files() {
 }
 
 
-if [ "$#" -ne 3 ] ; then
+if [ "$#" -ne 2 ] ; then
     echo "Usage: deploy.sh ROOT_DIRECTORY_OF_BUILD_LOCATION TARGET_DESTINATION"
     echo "Invalid number of parameters"
     exit
@@ -50,7 +50,6 @@ fi
 
 ROOT="$1"
 TARGET_DIR="$2"
-PUBLIC="$3"
 
 # Run unit tests
 cd $ROOT/tm-git/
@@ -65,8 +64,8 @@ fi
 copy_files $ROOT $TARGET_DIR
 
 # Notify completion
-INTERMEDIATE_PO=$PUBLIC/translation-memories/po
-BACKUP_DIR=$PUBLIC/previous
+INTERMEDIATE_PO=$TARGET_DIR/translation-memories/po
+BACKUP_DIR=$TARGET_DIR/previous
 cd $ROOT/tm-git/src
 python compare_sets.py -s  $BACKUP_DIR -t $INTERMEDIATE_PO
 ls -h -s -S  $TARGET_DIR/quality/*.html
