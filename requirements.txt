@@ -13,8 +13,8 @@ git+https://github.com/miracle2k/android2po.git@5c1954b35f409a6977265467e97f0baf
 
 # For server.
 Whoosh
-Jinja2
-flask
+#Jinja2
+#flask
 
 # For testing.
 pytest

@@ -7,11 +7,9 @@ COPY src/web /srv/web/
 COPY src/terminology/ /srv/terminology/
 COPY src/builder/ /srv/builder/
 COPY docker/entry-point-web.sh /srv/entry-point.sh
-COPY requirements.txt /srv/requirements.txt
 
-WORKDIR /srv/
+WORKDIR /srv/web/
 RUN pip install -r requirements.txt
-RUN pip install gunicorn
 
 #Web server
 COPY etc/nginx/recursos-docker /etc/nginx/sites-available/recursos
