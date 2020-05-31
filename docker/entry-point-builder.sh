@@ -14,7 +14,7 @@ git config --global user.name "TMT builder"
 
 
 cd /srv
-git clone ssh://git@gitlab.softcatala.org:3333/github/translation-memory-tools-files.git public_data
+git clone ssh://git@gitlab.softcatala.org:3333/github/translation-memory-tools-files.git public-data
 
 if [[ -n "${TRANSIFEX_USER}" && -n "${TRANSIFEX_PASSWORD}" ]]; then
     python $DIR_TMT_GIT/docker/credentials/transifex.py
