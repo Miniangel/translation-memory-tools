@@ -21,5 +21,7 @@ RUN rm default
 RUN ln -s /etc/nginx/sites-available/recursos .
 #RUN service nginx reload
 
+EXPOSE 8080
+
 ENTRYPOINT bash /srv/entry-point.sh
 
