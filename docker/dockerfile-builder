@@ -40,7 +40,8 @@ COPY docker/ $DIR_TMT_GIT/docker/
 COPY requirements.txt/ $DIR_TMT_GIT/
 
 WORKDIR $DIR_TMT_GIT/cfg/projects/
-RUN mkdir -p old && cp Int* old/ && cp OpenStack* old/ && rm *.json && cp old/* . && rm -r -f old/*
+#RUN mkdir -p old && cp Int* old/ && cp OpenStack* old/ && rm *.json && cp old/* . && rm -r -f old/*
+RUN mkdir -p old && cp Integra* old/ && cp Abiword* old/ && rm *.json && cp old/* . && rm -r -f old/*
 
 WORKDIR $DIR_TMT_GIT
 RUN pip install -r requirements.txt
