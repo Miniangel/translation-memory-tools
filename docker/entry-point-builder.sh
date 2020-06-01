@@ -7,7 +7,7 @@ PUBLIC=/srv/public-data
 
 echo $PRIVATE_KEY
 mkdir -p ~/.ssh && chmod 0700 ~/.ssh
-echo $PRIVATE_KEY > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+echo "$PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 eval `ssh-agent -s` && ssh-add -k ~/.ssh/id_rsa
 ssh-keyscan -p 3333 -H gitlab.softcatala.org >> ~/.ssh/known_hosts 
 git config --global user.email "jmas@softcatala.org"
