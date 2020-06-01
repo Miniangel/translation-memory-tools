@@ -28,7 +28,7 @@ if [[ -n "${ZANATA_PROJECT_1}" && -n "${ZANATA_USER_1}"  && -n "${ZANATA_TOKEN_1
 else
     echo "Removing Zentata projects"
     grep -l "type.*zanata" cfg/projects/*.json  | xargs rm -f
-fi
+
 
 tx --version
 
@@ -49,4 +49,4 @@ git add *
 git commit -a -m "File update"
 git push
 echo Completed!
-sleep 2d
+sleep 10m # to allow ssh

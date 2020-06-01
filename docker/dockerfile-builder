@@ -29,6 +29,9 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y locales
 RUN sed -i -e 's/# ca_ES.UTF-8 UTF-8/ca_ES.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales
 
+COPY requirements.txt/ $DIR_TMT_GIT/
+RUN pip install -r $DIR_TMT_GIT/requirements.txt
+
  
 WORKDIR $DIR
 RUN git clone https://github.com/Softcatala/web-2015.git
@@ -37,14 +40,11 @@ COPY deployment/ $DIR_TMT_GIT/deployment/
 COPY source-pos/ $DIR_TMT_GIT/source-pos/
 COPY cfg/ $DIR_TMT_GIT/cfg/
 COPY docker/ $DIR_TMT_GIT/docker/
-COPY requirements.txt/ $DIR_TMT_GIT/
+
 
 WORKDIR $DIR_TMT_GIT/cfg/projects/
 #RUN mkdir -p old && cp Int* old/ && cp OpenStack* old/ && rm *.json && cp old/* . && rm -r -f old/*
 RUN mkdir -p old && cp Integra* old/ && cp Git* old/ && rm *.json && cp old/* . && rm -r -f old/*
-
-WORKDIR $DIR_TMT_GIT
-RUN pip install -r requirements.txt
 
 # What get's executed on Run
 ENTRYPOINT bash $DIR_TMT_GIT/docker/entry-point-builder.sh $DIR $DIR_TMT_GIT 
