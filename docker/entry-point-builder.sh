@@ -6,7 +6,7 @@ PUBLIC=/srv/public-data
 #PREPROD_DEPLOY_DIR=/web/recursos-preprod
 
 mkdir -p ~/.ssh && chmod 0700 ~/.ssh
-cp /run/secrets/ssh_private_key  ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+echo $PRIVATE_KEY > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 eval `ssh-agent -s` && ssh-add -k ~/.ssh/id_rsa
 ssh-keyscan -p 3333 -H gitlab.softcatala.org >> ~/.ssh/known_hosts 
 git config --global user.email "jmas@softcatala.org"
@@ -49,4 +49,3 @@ git add *
 git commit -a -m "File update"
 git push
 echo Completed!
-sleep 10m # to allow ssh
