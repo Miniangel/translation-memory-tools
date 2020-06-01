@@ -5,6 +5,7 @@ PUBLIC=/srv/public-data
 #DEPLOY_DIR=/srv/web/recursos-dev
 #PREPROD_DEPLOY_DIR=/web/recursos-preprod
 
+echo $PRIVATE_KEY
 mkdir -p ~/.ssh && chmod 0700 ~/.ssh
 echo $PRIVATE_KEY > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 eval `ssh-agent -s` && ssh-add -k ~/.ssh/id_rsa
@@ -16,6 +17,7 @@ git config --global user.name "TMT builder"
 cd /srv
 git clone ssh://git@gitlab.softcatala.org:3333/github/translation-memory-tools-files.git public-data
 
+cd public-data
 if [[ -n "${TRANSIFEX_USER}" && -n "${TRANSIFEX_PASSWORD}" ]]; then
     python $DIR_TMT_GIT/docker/credentials/transifex.py
 else
@@ -29,8 +31,6 @@ else
     echo "Removing Zentata projects"
     grep -l "type.*zanata" cfg/projects/*.json  | xargs rm -f
 
-
-tx --version
 
 # Build
 cd $DIR_TMT_GIT/deployment 
