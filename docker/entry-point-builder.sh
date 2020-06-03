@@ -7,7 +7,6 @@ mkdir -p ~/.ssh && chmod 0700 ~/.ssh
 
 if [[ -n "${PRIVATE_KEY}" ]]; then
     echo "$PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
-fi
 else
     echo "No private key found"
 fi
