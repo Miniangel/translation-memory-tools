@@ -18,8 +18,6 @@ if [[ -n "${PRIVATE_KEY_FILE}" ]]; then
     cp "$PRIVATE_KEY_FILE" ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 fi
 
-bash
-
 eval `ssh-agent -s` && ssh-add -k ~/.ssh/id_rsa
 ssh-keyscan -p 3333 -H gitlab.softcatala.org >> ~/.ssh/known_hosts 
 git config --global user.email "jmas@softcatala.org"
