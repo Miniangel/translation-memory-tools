@@ -6,18 +6,19 @@ PUBLIC=/srv/public-data
 #PREPROD_DEPLOY_DIR=/web/recursos-preprod
 
 
-echo "Key: $PRIVATE_KEY"
 mkdir -p ~/.ssh && chmod 0700 ~/.ssh
 
-
+echo "Key: $PRIVATE_KEY"
 if [[ -n "${PRIVATE_KEY}" ]]; then
     echo "$PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 fi
 
+echo "Key file: $PRIVATE_KEY_FILE"
 if [[ -n "${PRIVATE_KEY_FILE}" ]]; then
     cp "$PRIVATE_KEY_FILE" ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 fi
 
+bash
 
 eval `ssh-agent -s` && ssh-add -k ~/.ssh/id_rsa
 ssh-keyscan -p 3333 -H gitlab.softcatala.org >> ~/.ssh/known_hosts 
