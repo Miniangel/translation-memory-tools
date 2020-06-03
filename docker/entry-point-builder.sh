@@ -2,20 +2,14 @@
 DIR="$1"
 DIR_TMT_GIT="$2"
 PUBLIC=/srv/public-data
-#DEPLOY_DIR=/srv/web/recursos-dev
-#PREPROD_DEPLOY_DIR=/web/recursos-preprod
-
 
 mkdir -p ~/.ssh && chmod 0700 ~/.ssh
 
-echo "Key: $PRIVATE_KEY"
 if [[ -n "${PRIVATE_KEY}" ]]; then
     echo "$PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 fi
-
-echo "Key file: $PRIVATE_KEY_FILE"
-if [[ -n "${PRIVATE_KEY_FILE}" ]]; then
-    cp "$PRIVATE_KEY_FILE" ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+else
+    echo "No private key found"
 fi
 
 eval `ssh-agent -s` && ssh-add -k ~/.ssh/id_rsa
