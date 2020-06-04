@@ -1,25 +1,38 @@
-FROM python:3.6.9-stretch
+FROM python:3.6.9-stretch as generate_data
 
-RUN apt-get update && apt-get install python3-dev libhunspell-dev gettext -y
-RUN apt-get install supervisor nginx lynx -y
-
+# Software
+RUN git clone --depth=1 https://github.com/Softcatala/web-2015.git web-2015
+COPY web-2015/ssi /srv/web/ssi
 COPY src/web /srv/web/
 COPY src/terminology/ /srv/terminology/
 COPY src/builder/ /srv/builder/
 COPY docker/entry-point-web.sh /srv/entry-point.sh
+WORKDIR /srv/web
 
-WORKDIR /srv/web/
-RUN pip install -r requirements.txt
+# Data
+COPY tmt-files/quality /srv/web/quality
+COPY tmt-files/indexdir /srv/web/indexdir
+COPY tmt-files/*.html /srv/web/
+
+FROM python:3.6.9-stretch
+
+RUN apt-get update && apt-get install python3-dev libhunspell-dev gettext -y
+RUN apt-get install nginx lynx -y
+
+COPY --from=generate_data /srv/ /srv/
+
+RUN pip install -r /srv/web/requirements.txt
+
 
 #Web server
 COPY etc/nginx/recursos-docker /etc/nginx/sites-available/recursos
-#RUN cp supervisor/recursos.conf /etc/nginx/sites-available /etc/supervisor/conf.d
 WORKDIR /etc/nginx/sites-enabled
 RUN rm default
 RUN ln -s /etc/nginx/sites-available/recursos .
-#RUN service nginx reload
 
 EXPOSE 8080
 
-ENTRYPOINT bash /srv/entry-point.sh
+WORKDIR /srv
+ENTRYPOINT bash
+#ENTRYPOINT bash /srv/entry-point.sh
 

@@ -3,3 +3,4 @@ Whoosh
 Jinja2
 flask
 gunicorn
+peewee
