@@ -55,6 +55,7 @@ echo Generate memories
 /bin/bash generate-tm.sh $DIR $PRESERVE_CROSSEXECS 2> $DIR_TMT_GIT/generate-errors.log
 echo Generate terminology
 /bin/bash generate-terminology.sh $DIR 2> $DIR_TMT_GIT/terminology-errors.log
+echo Generate Iso lists
 /bin/bash generate-isolists.sh $DIR 2> $DIR_TMT_GIT/iso-lists-errors.log
 echo Generate Quality
 /bin/bash generate-quality.sh $DIR 2> $DIR_TMT_GIT/quality-errors.log
