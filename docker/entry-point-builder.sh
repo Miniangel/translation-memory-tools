@@ -6,13 +6,13 @@ PRESERVE_CROSSEXECS=/srv/tmt-files
 PUBLIC=/srv/public-data
 
 # Run unit tests
-cd $DIR_TMT_GIT
-nosetests
-RETVAL=$?
-if [ $RETVAL -ne 0 ]; then
-    echo "Aborting deployment. Unit tests did not pass"
-    exit
-fi
+#cd $DIR_TMT_GIT
+#nosetests
+#RETVAL=$?
+#if [ $RETVAL -ne 0 ]; then
+#    echo "Aborting deployment. Unit tests did not pass"
+#    exit
+#fi
 
 
 # RSA key
@@ -32,11 +32,9 @@ git config --global user.name "TMT builder"
 git clone ssh://git@gitlab.softcatala.org:3333/github/translation-memory-tools-files.git $PRESERVE_CROSSEXECS
 
 # Copy cross execs
-cp $PRESERVE_CROSSEXECS/sc-glossary.db3 $DIR_TMT_GIT/glossary.db3
-cp $PRESERVE_CROSSEXECS/statistics.db3 $DIR_TMT_GIT/statistics.db3
+cp $PRESERVE_CROSSEXECS/glossary.db3 $DIR_TMT_GIT/src/glossary.db3
+cp $PRESERVE_CROSSEXECS/statistics.db3 $DIR_TMT_GIT/src/statistics.db3
 
-
-cd public-data
 if [[ -n "${TRANSIFEX_USER}" && -n "${TRANSIFEX_PASSWORD}" ]]; then
     python $DIR_TMT_GIT/docker/credentials/transifex.py
 else
@@ -63,8 +61,8 @@ echo Generate Quality
 /bin/bash deploy-docker.sh $DIR $PUBLISH_WEBDOCKER
 
 # Copy cross execs
-cp $DIR_TMT_GIT/glossary.db3 $PRESERVE_CROSSEXECS/sc-glossary.db3 
-cp $DIR_TMT_GIT/statistics.db3 $PRESERVE_CROSSEXECS/statistics.db3 
+cp $DIR_TMT_GIT/src/glossary.db3 $PRESERVE_CROSSEXECS/glossary.db3 
+cp $DIR_TMT_GIT/src/statistics.db3 $PRESERVE_CROSSEXECS/statistics.db3 
 
 
 # Deploy

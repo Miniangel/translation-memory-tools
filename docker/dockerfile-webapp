@@ -9,15 +9,15 @@ COPY docker/entry-point-web.sh /srv/entry-point.sh
 WORKDIR /srv/web
 
 # Data
-COPY tmt-files/quality /srv/web/quality
-COPY tmt-files/indexdir /srv/web/indexdir
-COPY tmt-files/memories /srv/web/memories
+COPY web-docker/quality /srv/web/quality
+COPY web-docker/indexdir /srv/web/indexdir
+COPY web-docker/memories /srv/web/memories
 
-COPY tmt-files/statistics.html /srv/web/
-COPY tmt-files/download.html /srv/web/
-COPY tmt-files/select-projects.html /srv/web/
-COPY tmt-files/iso*.html /srv/web/
-COPY tmt-files/*glossary* /srv/web/
+COPY web-docker/statistics.html /srv/web/
+COPY web-docker/download.html /srv/web/
+COPY web-docker/select-projects.html /srv/web/
+COPY web-docker/iso*.html /srv/web/
+COPY web-docker/*glossary* /srv/web/
 
 
 FROM python:3.6.9-stretch
