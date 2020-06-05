@@ -1,8 +1,7 @@
 FROM python:3.6.9-stretch as generate_data
 
 # Software
-RUN git clone --depth=1 https://github.com/Softcatala/web-2015.git web-2015
-COPY web-2015/ssi /srv/web/ssi
+RUN git clone --depth=1 https://github.com/Softcatala/web-2015.git /web-2015
 COPY src/web /srv/web/
 COPY src/terminology/ /srv/terminology/
 COPY src/builder/ /srv/builder/
@@ -12,7 +11,14 @@ WORKDIR /srv/web
 # Data
 COPY tmt-files/quality /srv/web/quality
 COPY tmt-files/indexdir /srv/web/indexdir
-COPY tmt-files/*.html /srv/web/
+COPY tmt-files/memories /srv/web/memories
+
+COPY tmt-files/statistics.html /srv/web/
+COPY tmt-files/download.html /srv/web/
+COPY tmt-files/select-projects.html /srv/web/
+COPY tmt-files/iso*.html /srv/web/
+COPY tmt-files/*glossary* /srv/web/
+
 
 FROM python:3.6.9-stretch
 
@@ -20,6 +26,7 @@ RUN apt-get update && apt-get install python3-dev libhunspell-dev gettext -y
 RUN apt-get install nginx lynx -y
 
 COPY --from=generate_data /srv/ /srv/
+COPY --from=generate_data /web-2015/ssi /srv/web/ssi
 
 RUN pip install -r /srv/web/requirements.txt
 

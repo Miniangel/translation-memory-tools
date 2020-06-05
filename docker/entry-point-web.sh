@@ -3,6 +3,5 @@
 #http://172.17.0.2:8080/
 /etc/init.d/nginx start
 cd /srv/web
-bash
-#gunicorn web_search:app -b 0.0.0.0:8000
+gunicorn web_search:app -b 0.0.0.0:8000
 
