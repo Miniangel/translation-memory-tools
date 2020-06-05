@@ -40,6 +40,6 @@ RUN ln -s /etc/nginx/sites-available/recursos .
 EXPOSE 8080
 
 WORKDIR /srv
-ENTRYPOINT bash
-#ENTRYPOINT bash /srv/entry-point.sh
+#ENTRYPOINT bash
+ENTRYPOINT bash /srv/entry-point.sh
 
