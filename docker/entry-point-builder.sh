@@ -1,8 +1,21 @@
 #!/bin/bash
-DIR="$1"
-DIR_TMT_GIT="$2"
+DIR="$1" # root /srv/dev
+DIR_TMT_GIT="$2" # /srv/dev/tm-git - working directory
+PUBLISH_WEBDOCKER=/srv/web-docker
+PRESERVE_CROSSEXECS=/srv/tmt-files
 PUBLIC=/srv/public-data
 
+# Run unit tests
+cd $DIR_TMT_GIT
+nosetests
+RETVAL=$?
+if [ $RETVAL -ne 0 ]; then
+    echo "Aborting deployment. Unit tests did not pass"
+    exit
+fi
+
+
+# RSA key
 mkdir -p ~/.ssh && chmod 0700 ~/.ssh
 
 if [[ -n "${PRIVATE_KEY}" ]]; then
@@ -16,8 +29,12 @@ ssh-keyscan -p 3333 -H gitlab.softcatala.org >> ~/.ssh/known_hosts
 git config --global user.email "jmas@softcatala.org"
 git config --global user.name "TMT builder"
 
-cd /srv
-git clone ssh://git@gitlab.softcatala.org:3333/github/translation-memory-tools-files.git public-data
+git clone ssh://git@gitlab.softcatala.org:3333/github/translation-memory-tools-files.git $PRESERVE_CROSSEXECS
+
+# Copy cross execs
+cp $PRESERVE_CROSSEXECS/sc-glossary.db3 $DIR_TMT_GIT/glossary.db3
+cp $PRESERVE_CROSSEXECS/statistics.db3 $DIR_TMT_GIT/statistics.db3
+
 
 cd public-data
 if [[ -n "${TRANSIFEX_USER}" && -n "${TRANSIFEX_PASSWORD}" ]]; then
@@ -37,16 +54,21 @@ fi
 # Build
 cd $DIR_TMT_GIT/deployment 
 echo Generate memories
-/bin/bash generate-tm.sh $DIR $PUBLIC 2> $DIR_TMT_GIT/generate-errors.log
+/bin/bash generate-tm.sh $DIR $PRESERVE_CROSSEXECS 2> $DIR_TMT_GIT/generate-errors.log
 echo Generate terminology
 /bin/bash generate-terminology.sh $DIR 2> $DIR_TMT_GIT/terminology-errors.log
 /bin/bash generate-isolists.sh $DIR 2> $DIR_TMT_GIT/iso-lists-errors.log
 echo Generate Quality
 /bin/bash generate-quality.sh $DIR 2> $DIR_TMT_GIT/quality-errors.log
-/bin/bash deploy-docker.sh $DIR $PUBLIC
+/bin/bash deploy-docker.sh $DIR $PUBLISH_WEBDOCKER
+
+# Copy cross execs
+cp $DIR_TMT_GIT/glossary.db3 $PRESERVE_CROSSEXECS/sc-glossary.db3 
+cp $DIR_TMT_GIT/statistics.db3 $PRESERVE_CROSSEXECS/statistics.db3 
+
 
 # Deploy
-cd $PUBLIC
+cd $PRESERVE_CROSSEXECS
 git add *
 git commit -a -m "File update"
 git push

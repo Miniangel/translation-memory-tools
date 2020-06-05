@@ -51,15 +51,6 @@ fi
 ROOT="$1"
 TARGET_DIR="$2"
 
-# Run unit tests
-cd $ROOT/tm-git/
-nosetests
-RETVAL=$?
-if [ $RETVAL -ne 0 ]; then
-    echo "Aborting deployment. Unit tests did not pass"
-    exit
-fi
-
 # Deployment to production environment
 copy_files $ROOT $TARGET_DIR
 
