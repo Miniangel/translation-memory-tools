@@ -71,4 +71,7 @@ cd $PRESERVE_CROSSEXECS
 git add *
 git commit -a -m "File update"
 git push
-echo Completed!
+
+# Create tmt-data
+cd /srv
+docker build -t tmt-data . -f dockerfile-data

@@ -1,0 +1,4 @@
+FROM python:3.6.9-stretch
+COPY /web-docker /srv/web-docker
+
+
