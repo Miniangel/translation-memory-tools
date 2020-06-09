@@ -1,3 +1,5 @@
+FROM softcatala/tmt-data:master as docker_web
+
 FROM python:3.6.9-stretch as generate_data
 
 # Software
@@ -9,16 +11,14 @@ COPY docker/entry-point-web.sh /srv/entry-point.sh
 WORKDIR /srv/web
 
 # Data
-COPY web-docker/quality /srv/web/quality
-COPY web-docker/indexdir /srv/web/indexdir
-COPY web-docker/memories /srv/web/memories
-
-COPY web-docker/statistics.html /srv/web/
-COPY web-docker/download.html /srv/web/
-COPY web-docker/select-projects.html /srv/web/
-COPY web-docker/iso*.html /srv/web/
-COPY web-docker/*glossary* /srv/web/
-
+COPY --from=docker_web /srv/web-docker/quality /srv/web/quality
+COPY --from=docker_web /srv/web-docker/indexdir /srv/web/indexdir
+COPY --from=docker_web /srv/ web-docker/memories /srv/web/memories
+COPY --from=docker_web /srv/web-docker/statistics.html /srv/web/
+COPY --from=docker_web /srv/web-docker/download.html /srv/web/
+COPY --from=docker_web /srv/web-docker/select-projects.html /srv/web/
+COPY --from=docker_web /srv/web-docker/iso*.html /srv/web/
+COPY --from=docker_web /srv/web-docker/*glossary* /srv/web/
 
 FROM python:3.6.9-stretch
 
