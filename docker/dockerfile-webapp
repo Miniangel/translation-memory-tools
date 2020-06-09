@@ -13,7 +13,7 @@ WORKDIR /srv/web
 # Data
 COPY --from=docker_web /srv/web-docker/quality /srv/web/quality
 COPY --from=docker_web /srv/web-docker/indexdir /srv/web/indexdir
-COPY --from=docker_web /srv/ web-docker/memories /srv/web/memories
+COPY --from=docker_web /srv/web-docker/memories /srv/web/memories
 COPY --from=docker_web /srv/web-docker/statistics.html /srv/web/
 COPY --from=docker_web /srv/web-docker/download.html /srv/web/
 COPY --from=docker_web /srv/web-docker/select-projects.html /srv/web/
