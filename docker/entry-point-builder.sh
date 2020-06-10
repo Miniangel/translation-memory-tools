@@ -33,7 +33,6 @@ git clone ssh://git@gitlab.softcatala.org:3333/github/translation-memory-tools-f
 
 # Copy cross execs
 cp $PRESERVE_CROSSEXECS/glossary.db3 $DIR_TMT_GIT/src/glossary.db3
-cp $PRESERVE_CROSSEXECS/statistics.db3 $DIR_TMT_GIT/src/statistics.db3
 
 if [[ -n "${TRANSIFEX_USER}" && -n "${TRANSIFEX_PASSWORD}" ]]; then
     python $DIR_TMT_GIT/docker/credentials/transifex.py
@@ -62,7 +61,6 @@ echo Generate Quality
 /bin/bash deploy-docker.sh $DIR $PUBLISH_WEBDOCKER
 
 # Copy cross execs
-cp $DIR_TMT_GIT/src/glossary.db3 $PRESERVE_CROSSEXECS/glossary.db3 
 cp $DIR_TMT_GIT/src/statistics.db3 $PRESERVE_CROSSEXECS/statistics.db3 
 
 
