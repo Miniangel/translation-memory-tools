@@ -33,6 +33,7 @@ git clone ssh://git@gitlab.softcatala.org:3333/github/translation-memory-tools-f
 
 # Copy cross execs
 cp $PRESERVE_CROSSEXECS/glossary.db3 $DIR_TMT_GIT/src/glossary.db3
+cp -r $PRESERVE_CROSSEXECS/previous/ $DIR/previous/
 
 if [[ -n "${TRANSIFEX_USER}" && -n "${TRANSIFEX_PASSWORD}" ]]; then
     python $DIR_TMT_GIT/docker/credentials/transifex.py
@@ -51,7 +52,7 @@ fi
 # Build
 cd $DIR_TMT_GIT/deployment 
 echo Generate memories
-/bin/bash generate-tm.sh $DIR $PRESERVE_CROSSEXECS 2> $DIR_TMT_GIT/generate-errors.log
+/bin/bash generate-tm.sh $DIR $DIR 2> $DIR_TMT_GIT/generate-errors.log
 echo Generate terminology
 /bin/bash generate-terminology.sh $DIR 2> $DIR_TMT_GIT/terminology-errors.log
 echo Generate Iso lists
@@ -62,7 +63,7 @@ echo Generate Quality
 
 # Copy cross execs
 cp $DIR_TMT_GIT/src/statistics.db3 $PRESERVE_CROSSEXECS/statistics.db3 
-
+cp -r $DIR/previous/ $PRESERVE_CROSSEXECS/previous/
 
 # Deploy
 cd $PRESERVE_CROSSEXECS
