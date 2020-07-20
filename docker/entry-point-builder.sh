@@ -28,6 +28,7 @@ ssh-keyscan -p 3333 -H gitlab.softcatala.org >> ~/.ssh/known_hosts
 git config --global user.email "jmas@softcatala.org"
 git config --global user.name "TMT builder"
 
+ls $PRESERVE_CROSSEXECS
 git clone ssh://git@gitlab.softcatala.org:3333/github/translation-memory-tools-files.git $PRESERVE_CROSSEXECS
 
 # Copy cross execs
