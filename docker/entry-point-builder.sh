@@ -23,13 +23,13 @@ else
     echo "No private key found"
 fi
 
-eval `ssh-agent -s` && ssh-add -k ~/.ssh/id_rsa
-ssh-keyscan -p 3333 -H gitlab.softcatala.org >> ~/.ssh/known_hosts 
-git config --global user.email "jmas@softcatala.org"
-git config --global user.name "TMT builder"
+#eval `ssh-agent -s` && ssh-add -k ~/.ssh/id_rsa
+#ssh-keyscan -p 3333 -H gitlab.softcatala.org >> ~/.ssh/known_hosts 
+#git config --global user.email "jmas@softcatala.org"
+#git config --global user.name "TMT builder"
 
 ls $PRESERVE_CROSSEXECS
-git clone ssh://git@gitlab.softcatala.org:3333/github/translation-memory-tools-files.git $PRESERVE_CROSSEXECS
+#git clone ssh://git@gitlab.softcatala.org:3333/github/translation-memory-tools-files.git $PRESERVE_CROSSEXECS
 
 # Copy cross execs
 cp $PRESERVE_CROSSEXECS/statistics.db3 $DIR_TMT_GIT/src/statistics.db3
@@ -70,7 +70,7 @@ mkdir -p $PRESERVE_CROSSEXECS/translation-memories
 cp -r $DIR/translation-memories/* $PRESERVE_CROSSEXECS/translation-memories
 
 # Deploy
-cd $PRESERVE_CROSSEXECS
-git add *
-git commit -a -m "File update"
-git push
+#cd $PRESERVE_CROSSEXECS
+#git add *
+#git commit -a -m "File update"
+#git push
