@@ -15,13 +15,13 @@ PRESERVE_CROSSEXECS=/srv/tmt-files
 
 
 # RSA key
-mkdir -p ~/.ssh && chmod 0700 ~/.ssh
+#mkdir -p ~/.ssh && chmod 0700 ~/.ssh
 
-if [[ -n "${PRIVATE_KEY}" ]]; then
-    echo "$PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
-else
-    echo "No private key found"
-fi
+#if [[ -n "${PRIVATE_KEY}" ]]; then
+#    echo "$PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+#else
+#    echo "No private key found"
+#fi
 
 #eval `ssh-agent -s` && ssh-add -k ~/.ssh/id_rsa
 #ssh-keyscan -p 3333 -H gitlab.softcatala.org >> ~/.ssh/known_hosts 
