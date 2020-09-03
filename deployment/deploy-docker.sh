@@ -8,7 +8,6 @@ copy_files() {
     cp -r $1/tm-git/src/web/indexdir/* $2/indexdir
 
     cp $1/tm-git/src/statistics.html $2
-    cp $1/tm-git/src/download.html $2
     cp $1/tm-git/src/select-projects.html $2
     cp $1/tm-git/src/web/memories.html $2
     cp $1/tm-git/src/web/terminologia.html $2
@@ -16,6 +15,7 @@ copy_files() {
     
     # Download memories
     cp $1/tm-git/src/download.html $2
+    cp $1/tm-git/src/projects.json $2
     rm -r -f $2/memories
     mkdir $2/memories
     cp $1/tm-git/src/memories/*.zip $2/memories
