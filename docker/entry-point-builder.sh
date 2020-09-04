@@ -36,6 +36,9 @@ else
     grep -l "type.*zanata" cfg/projects/*.json  | xargs rm -f
 fi
 
+cd $DIR_TMT_GIT/
+mkdir cfg/projects/old && cp cfg/projects/I* cfg/projects/old/ && rm cfg/projects/*.json && cp cfg/projects/old/* cfg/projects/
+
 # Build
 cd $DIR_TMT_GIT/deployment 
 echo Generate memories
