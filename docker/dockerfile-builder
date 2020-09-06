@@ -3,7 +3,7 @@ FROM python:3.6.9-stretch
 ENV DIR /srv/dev
 ENV DIR_TMT_GIT /srv/dev/tm-git
 
-RUN apt-get update && apt-get install python3-dev libhunspell-dev libyaml-dev gettext zip vim -y
+RUN apt-get update && apt-get install python3-dev libhunspell-dev libyaml-dev gettext zip vim mercurial -y
 RUN mkdir -p $DIR
 
 #Pology
@@ -39,7 +39,7 @@ COPY source-pos/ $DIR_TMT_GIT/source-pos/
 COPY cfg/ $DIR_TMT_GIT/cfg/
 COPY docker/ $DIR_TMT_GIT/docker/
 
-WORKDIR $DIR_TMT_GIT/cfg/projects/
+#WORKDIR $DIR_TMT_GIT/cfg/projects/
 #RUN mkdir -p old && cp Integra* old/ && cp Recull* old/ && rm *.json && cp old/* . && rm -r -f old/*
 
 # What get's executed on Run
