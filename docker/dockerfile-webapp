@@ -3,7 +3,6 @@ FROM registry.softcatala.org/github/translation-memory-tools-build-data:master a
 FROM python:3.6.9-stretch as generate_data
 
 # Software
-RUN git clone --depth=1 https://github.com/Softcatala/web-2015.git /web-2015
 COPY src/web /srv/web/
 COPY src/terminology/ /srv/terminology/
 COPY src/builder/ /srv/builder/
@@ -14,29 +13,16 @@ WORKDIR /srv/web
 COPY --from=docker_web /srv/web-docker/quality /srv/web/quality
 COPY --from=docker_web /srv/web-docker/indexdir /srv/web/indexdir
 COPY --from=docker_web /srv/web-docker/memories /srv/web/memories
-COPY --from=docker_web /srv/web-docker/statistics.html /srv/web/
-COPY --from=docker_web /srv/web-docker/download.html /srv/web/
 COPY --from=docker_web /srv/web-docker/projects.json /srv/web/
-COPY --from=docker_web /srv/web-docker/select-projects.html /srv/web/
-COPY --from=docker_web /srv/web-docker/iso*.html /srv/web/
 COPY --from=docker_web /srv/web-docker/*glossary* /srv/web/
 
 FROM python:3.6.9-stretch
 
-RUN apt-get update && apt-get install python3-dev libhunspell-dev gettext -y
-RUN apt-get install nginx lynx -y
+RUN apt-get update && apt-get install python3-dev gettext -y
 
 COPY --from=generate_data /srv/ /srv/
-COPY --from=generate_data /web-2015/ssi /srv/web/ssi
 
 RUN pip install -r /srv/web/requirements.txt
-
-
-#Web server
-COPY etc/nginx/recursos-docker /etc/nginx/sites-available/recursos
-WORKDIR /etc/nginx/sites-enabled
-RUN rm default
-RUN ln -s /etc/nginx/sites-available/recursos .
 
 EXPOSE 8080
 
