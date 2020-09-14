@@ -10,11 +10,11 @@ COPY docker/entry-point-web.sh /srv/entry-point.sh
 WORKDIR /srv/web
 
 # Data
-COPY --from=docker_web /srv/web-docker/quality /srv/web/quality
-COPY --from=docker_web /srv/web-docker/indexdir /srv/web/indexdir
-COPY --from=docker_web /srv/web-docker/memories /srv/web/memories
-COPY --from=docker_web /srv/web-docker/projects.json /srv/web/
-COPY --from=docker_web /srv/web-docker/*glossary* /srv/web/
+COPY --from=docker_web /static/quality /srv/web/quality
+COPY --from=docker_web /static/indexdir /srv/web/indexdir
+COPY --from=docker_web /static/memories /srv/web/memories
+COPY --from=docker_web /static/projects.json /srv/web/
+COPY --from=docker_web /static/*glossary* /srv/web/
 
 FROM python:3.6.9-stretch
 
