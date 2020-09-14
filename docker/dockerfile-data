@@ -1,5 +1,9 @@
-FROM python:3.6.9-stretch
-COPY /web-docker /srv/web-docker
+FROM python:3.6.9-stretch as builder
+#COPY /web-docker /srv/web-docker
 
 
-ENTRYPOINT bash
+FROM softcatala/sc-static-file-server
+
+COPY --from=builder /web-docker /static/
+
+ENTRYPOINT [ "/scStaticFileServer" ]
